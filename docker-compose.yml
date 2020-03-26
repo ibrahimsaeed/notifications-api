@@ -1,0 +1,33 @@
+version: '3'
+services:
+  app:
+    container_name: node-app
+    build:
+      context: .
+      dockerfile: app.dockerfile
+    ports:
+      - '3000:3000'  
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: rabbitmq
+        environment:
+            RABBITMQ_DEFAULT_USER: rabbit_user
+            RABBITMQ_DEFAULT_PASS: rabbit_password
+        ports:
+            - 5672:5672
+            - 15672:15672
+            

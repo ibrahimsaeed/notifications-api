@@ -1,0 +1,22 @@
+{
+  "name": "notifications",
+  "version": "1.0.0",
+  "description": "A node.js Restful Api for Notifications",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --detectOpenHandles"
+  },
+  "author": "ibrahimsaeed",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.5"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "supertest": "^4.0.2"
+  }
+}
