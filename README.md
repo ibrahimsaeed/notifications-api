@@ -57,13 +57,3 @@ Send Notification To Group Of Users
         ]
 }
 ```
-
-## Notes
-by starting this service it will listen to RabbitMQ and consume queued notifications , 
-on send notification it will notify you with pushed notification to queue , 
-and re-listen to queued notifications and back with it to you again . 
-
-one last thing , sometimes in first start .. node container exit with code 1 due to waiting rabbitMQ and Mongo containers to start, i think it is need to handled better ,
-Run `docker-compose ps` to check node container status , 
-Hit `docker-compose up` to start ,
-to Close Hit `docker-compose down` . 

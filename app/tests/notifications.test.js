@@ -1,7 +1,7 @@
-const request = require("supertest")
-const app = require("../../app");
-const notificationsRoutes = require('../routes/notification')
-app.use('/notifications', notificationsRoutes)
+const request = require("supertest");
+const app = require("./assets");
+const notificationsRoutes = require('../routes/notification');
+app.use('/notifications', notificationsRoutes);
 
 //Send Noticiation to Specific User
 describe("Send Noticiation to Specific User", () => {
@@ -37,23 +37,23 @@ describe("Send Noticiation to Group of Users", () => {
         users: [
           {
             id: "1",
-            name:"testUser",
-            email:"pla@pla.pla",
-            phoneNumber: "1234567890",
+            name:"User1",
+            email:"User1@pla.pla",
+            phoneNumber: "01012345678",
             langauge:"en"
           },
           {
-            id: "1",
-            name:"testUser",
-            email:"pla@pla.pla",
-            phoneNumber: "1234567890",
+            id: "2",
+            name:"User2",
+            email:"User2@pla.pla",
+            phoneNumber: "01112345678",
             langauge:"en"
           },
           {
-            id: "1",
-            name:"testUser",
-            email:"pla@pla.pla",
-            phoneNumber: "1234567890",
+            id: "3",
+            name:"User3",
+            email:"User3@pla.pla",
+            phoneNumber: "01212345678",
             langauge:"en"
           }
         ]

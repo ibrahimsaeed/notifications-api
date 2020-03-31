@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const Notification = require('../models/notification')
-const amqp = require('amqplib/callback_api')
+const mongoose = require('mongoose');
+const Notification = require('../models/notification');
+const notificationQueue = require('./notificationQueue');
 
+//Get All Notifications
 exports.getAllNotification = (req, res) => {
     Notification.find()
     .exec()
@@ -15,6 +16,7 @@ exports.getAllNotification = (req, res) => {
     })    
 }
 
+//Send Noticiations
 exports.createNotification = (req, res) => {
     const newNotification = new Notification({       
         type:req.body.type,
@@ -22,22 +24,10 @@ exports.createNotification = (req, res) => {
         users: req.body.users
     })
     Notification.create(newNotification)
-    .then(notification => {
-        res.status(201).json({notification});
-        // Send Notifications To Queue
-        amqp.connect('amqp://rabbit_user:rabbit_password@rabbitmq', function(error, connection) {
-        connection.createChannel(function(error1, channel) {
-            let queue = 'notifications_queue';
-            channel.assertQueue(queue, {
-            durable: true
-            });
-            channel.sendToQueue(queue, Buffer.from(JSON.stringify(notification)), {
-                persistent: true
-            });
-            console.log(" [x] Sent %s", notification);
-        });
-        });
-         
+    .then(newNotification => {
+        res.status(201).json({newNotification});
+        // save Notifications in Queue based on Notification type
+        notificationQueue.addToQueue(newNotification,newNotification.type);
     })
     .catch(err => {
         res.status(500).json({
